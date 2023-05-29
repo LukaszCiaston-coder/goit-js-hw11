@@ -1,6 +1,5 @@
 
 import { handleFormSubmit, loadMoreImages } from './search.js';
-import { appendImages, showLoadMoreButton, hideLoadMoreButton } from './gallery.js';
 import { initializeSimpleLightbox } from './lightbox.js';
 
 const loadMoreBtn = document.querySelector('.load-more');
