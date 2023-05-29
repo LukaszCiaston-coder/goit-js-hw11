@@ -7,6 +7,7 @@ const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 let currentPage = 1;
 let currentQuery = '';
+let totalHits = 0;
 
 export async function handleFormSubmit(event) {
   event.preventDefault();
@@ -26,6 +27,7 @@ export async function handleFormSubmit(event) {
   try {
     const response = await searchImages(query);
     const images = response.data.hits;
+    totalHits = response.data.totalHits;
     
     if (images.length === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
@@ -34,9 +36,7 @@ export async function handleFormSubmit(event) {
     
     appendImages(images);
     
-    if (images.length < 40) {
-      hideLoadMoreButton();
-    } else {
+    if (totalHits > 40) {
       showLoadMoreButton();
     }
   } catch (error) {
@@ -51,9 +51,9 @@ export async function loadMoreImages() {
     const response = await searchImages(currentQuery, currentPage);
     const images = response.data.hits;
     
-    if (images.length === 0) {
-      Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
+    if (currentPage * 40 >= totalHits) {
       hideLoadMoreButton();
+      alert("We're sorry, but you've reached the end of search results.");
       return;
     }
     
