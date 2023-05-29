@@ -39,10 +39,13 @@ export async function handleFormSubmit(event) {
     if (totalHits > 40) {
       showLoadMoreButton();
     }
+    
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   } catch (error) {
     console.error('An error occurred:', error);
   }
 }
+
 
 export async function loadMoreImages() {
   try {
