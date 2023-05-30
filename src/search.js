@@ -56,7 +56,7 @@ export async function loadMoreImages() {
     
     if (currentPage * 40 >= totalHits) {
       hideLoadMoreButton();
-      alert("We're sorry, but you've reached the end of search results.");
+      Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
       return;
     }
     
